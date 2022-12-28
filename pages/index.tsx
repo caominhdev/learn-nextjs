@@ -1,11 +1,27 @@
 import { Inter } from '@next/font/google'
+import { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import styles from '../styles/Home.module.css'
-
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+const Home: NextPage = () => {
+    const router = useRouter()
+
+    function goToDetailPage() {
+        router.push('/success-page')
+        // or using options object
+        router.push({
+            pathname: '/posts/[postId]',
+            query: {
+                postId: 123456789,
+                ref: 'social',
+            },
+        })
+    }
+
     return (
         <>
             <Head>
@@ -18,14 +34,16 @@ export default function Home() {
                     name='viewport'
                     content='width=device-width, initial-scale=1'
                 />
-                <link rel='icon' href='/favicon.ico' />
+                <link rel=' ' href='/favicon.ico' />
             </Head>
+
             <main className={styles.main}>
                 <div className={styles.description}>
                     <p>
                         Get started by editing&nbsp;
                         <code className={styles.code}>pages/index.tsx</code>
                     </p>
+
                     <div>
                         <a
                             href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
@@ -43,6 +61,13 @@ export default function Home() {
                         </a>
                     </div>
                 </div>
+                <Link href='/about'>About Us</Link>
+                <button
+                    style={{ padding: 10 }}
+                    type='button'
+                    onClick={goToDetailPage}>
+                    Go To Detail Page
+                </button>
 
                 <div className={styles.center}>
                     <Image
@@ -63,7 +88,6 @@ export default function Home() {
                         />
                     </div>
                 </div>
-
                 <div className={styles.grid}>
                     <a
                         href='https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
@@ -125,3 +149,4 @@ export default function Home() {
         </>
     )
 }
+export default Home
